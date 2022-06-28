@@ -41,16 +41,16 @@ inicio ::=   inicio exp:e SEMI       {: System.out.println(e);         :}
 ;
 
 exp ::=   exp:e1 MAIOR exp:e2                       {: RESULT = (int)e1 > (int)e2;          :}
-		| exp:e1 MENOR exp:e2                       {: RESULT = (int)e1 < (int)e2;          :}
-		| exp:e1 IGUAL exp:e2                       {: RESULT = e1.equals(e2);              :}
+        | exp:e1 MENOR exp:e2                       {: RESULT = (int)e1 < (int)e2;          :}
+        | exp:e1 IGUAL exp:e2                       {: RESULT = e1.equals(e2);              :}
         | ESCREVA STRING:s                          {: RESULT = s;                          :}
         | ESCREVA STRING:s NUMERO:n VEZES           {: if (n >= 1) {RESULT = s;} for (int i = 1; i < n; i++) {System.out.println(s);}; :}
-		| IF exp:e1 ENTAO exp:e2 ELSE exp:e3        {: if ((Boolean) (e1)) RESULT = e2; else RESULT = e3; :}
-		| IF exp:e1 ENTAO exp:e2                    {: if ((Boolean) (e1)) RESULT = e2;     :}
+        | IF exp:e1 ENTAO exp:e2 ELSE exp:e3        {: if ((Boolean) (e1)) RESULT = e2; else RESULT = e3; :}
+        | IF exp:e1 ENTAO exp:e2                    {: if ((Boolean) (e1)) RESULT = e2;     :}
         | exp:e1 MAIS exp:e2                        {: RESULT = (int)e1 + (int)e2;          :}
         | exp:e1 MENOS exp:e2                       {: RESULT = (int)e1 - (int)e2;          :}
         | exp:e1 VEZES_MULT exp:e2                  {: RESULT = (int)e1 * (int)e2;          :}
-		| exp:e1 DIVIDIDO exp:e2                    {: RESULT = (int)e1 / (int)e2;          :}
+        | exp:e1 DIVIDIDO exp:e2                    {: RESULT = (int)e1 / (int)e2;          :}
         | METADE APAR exp:e1 FPAR INTERROGACAO      {: RESULT = (int)e1 / 2;                :}
         | DOBRO APAR exp:e1 FPAR INTERROGACAO       {: RESULT = 2 * (int)e1;                :}
         | TRIPLO APAR exp:e1 FPAR INTERROGACAO      {: RESULT = 3 * (int)e1;                :}
