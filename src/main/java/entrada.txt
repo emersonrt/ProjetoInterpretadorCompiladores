@@ -1,0 +1,15 @@
+Guarde 40 em x;
+Guarde x em y;
+y;
+
+Se y eh maior que 2 entao guarde 2 em y;
+Se y eh igual a 2 entao guarde 10 em y senao escreva "foi mesmo, cara";
+
+Se y eh igual a 10 entao escreva "eita giovana";
+
+Escreva "olá mundo" 3 vez(es);
+Escreva "teste" 1 vez(es);
+
+Qual eh a metade de (50 dividido por 5)?;
+Qual eh o dobro de (y mais 4)?;
+Qual eh o triplo de (3 vezes 2)?;

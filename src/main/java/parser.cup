@@ -1,0 +1,62 @@
+/*Documentação: http://www2.cs.tum.edu/projects/cup/*/
+import java_cup.runtime.*;
+
+
+parser code {:
+    // conectar esse parser ao scanner!
+    Scanner s;
+    Parser(Scanner s){ this.s=s; }
+
+    // tabela de símbolos
+    java.util.Map<String, Integer> simbolos = new java.util.HashMap<String, Integer>();
+:}
+
+
+/* conectar esse parser ao scanner! */
+init with {:  :};
+scan with {: return s.next_token(); :};
+
+
+/* Terminais (tokens retornados pelo scanner). */
+terminal            SEMI, GUARDE, EM, ID, ESCREVA, IF, ELSE, MAIOR, MENOR, IGUAL, STRING, ENTAO, VEZES, 
+                    MAIS, MENOS, DIVIDIDO, DOBRO, TRIPLO, METADE, APAR, FPAR, INTERROGACAO, VEZES_MULT;
+terminal Integer    NUMERO;
+terminal Boolean    BOOL;
+
+
+/* Não terminais */
+non terminal inicio;
+non terminal exp; 
+
+
+/* Precedência de operadores */
+precedence left MAIS, MENOS;
+precedence left VEZES_MULT, DIVIDIDO;
+precedence left MAIOR, MENOR, IGUAL;
+precedence left IF, ELSE;
+
+
+inicio ::=   inicio exp:e SEMI       {: System.out.println(e);         :}
+           | exp:e SEMI              {: System.out.println(e);         :}
+;
+
+exp ::=   exp:e1 MAIOR exp:e2                       {: RESULT = (int)e1 > (int)e2;          :}
+		| exp:e1 MENOR exp:e2                       {: RESULT = (int)e1 < (int)e2;          :}
+		| exp:e1 IGUAL exp:e2                       {: RESULT = e1.equals(e2);              :}
+        | ESCREVA STRING:s                          {: RESULT = s;                          :}
+        | ESCREVA STRING:s NUMERO:n VEZES           {: if (n >= 1) {RESULT = s;} for (int i = 1; i < n; i++) {System.out.println(s);}; :}
+		| IF exp:e1 ENTAO exp:e2 ELSE exp:e3        {: if ((Boolean) (e1)) RESULT = e2; else RESULT = e3; :}
+		| IF exp:e1 ENTAO exp:e2                    {: if ((Boolean) (e1)) RESULT = e2;     :}
+        | exp:e1 MAIS exp:e2                        {: RESULT = (int)e1 + (int)e2;          :}
+        | exp:e1 MENOS exp:e2                       {: RESULT = (int)e1 - (int)e2;          :}
+        | exp:e1 VEZES_MULT exp:e2                  {: RESULT = (int)e1 * (int)e2;          :}
+		| exp:e1 DIVIDIDO exp:e2                    {: RESULT = (int)e1 / (int)e2;          :}
+        | METADE APAR exp:e1 FPAR INTERROGACAO      {: RESULT = (int)e1 / 2;                :}
+        | DOBRO APAR exp:e1 FPAR INTERROGACAO       {: RESULT = 2 * (int)e1;                :}
+        | TRIPLO APAR exp:e1 FPAR INTERROGACAO      {: RESULT = 3 * (int)e1;                :}
+        | NUMERO:n                                  {: RESULT = n;                          :}
+        | STRING:s                                  {: RESULT = s;                          :}
+        | BOOL:b                                    {: RESULT = b;                          :}
+        | ID:i	                                    {: RESULT = simbolos.get(i);            :}
+        | GUARDE exp:e EM ID:i                      {: simbolos.put(i.toString(), (int) e); RESULT = e; :}
+;
