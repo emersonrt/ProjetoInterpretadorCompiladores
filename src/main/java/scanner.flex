@@ -15,7 +15,6 @@ eofval: especifica um valor de retorno no final do arquivo
 
 %class Scanner
 %cup
-//%full
 %line
 %char
 %ignorecase
